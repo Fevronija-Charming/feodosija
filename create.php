@@ -90,7 +90,7 @@ $db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
 //            }
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use PhpAmqpLib\Wire\AMQPWriter;
+use PhpAmqpLib\Wire\AMQPTable;
 //подключение к брокеру
 try {$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine);
     } catch (Exception $e) {
