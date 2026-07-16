@@ -38,11 +38,11 @@ spl_autoload_register(function ($class) {
     }
 });
 //дешифрация секретов
-$rabbit_host=getenv(RABBITHOST);
-$rabbit_port=getenv(RABBITPORT);
-$rabbit_username=getenv(RABBITUSERNAME);
-$rabbit_password=getenv(RABBITPASSWORD);
-$rabbit_virtual_engine=getenv(RABBITVIRTUALENGINE);
+$rabbit_host=getenv('RABBITHOST');
+$rabbit_port=getenv('RABBITPORT');
+$rabbit_username=getenv('RABBITUSERNAME');
+$rabbit_password=getenv('RABBITPASSWORD');
+$rabbit_virtual_engine=getenv('RABBITVIRTUALENGINE');
 $host=getenv('HOST');
 $dbname=getenv("DBNAME");
 $password=getenv("PASSWORD");
