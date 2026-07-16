@@ -81,10 +81,13 @@ $password=getenv("PASSWORD");
 $username=getenv("USERNAME");
 $port=getenv("PORT");
 //подключение к БД
-try {$pdo= new PDO("pgsql:host=$host;dbname=$dbname;port=$port;",$username,$password);
-    } catch (PDOException $exception){
-echo "Error: {$exception->getMessage()}";
-            }
+$db=parse_url(getenv("DATABASEURL"));
+$pdo=new PDO("pgsql:".sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
+$db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
+//try {$pdo= new PDO("pgsql:host=$host;dbname=$dbname;port=$port;",$username,$password);
+   // } catch (PDOException $exception){
+//echo "Error: {$exception->getMessage()}";
+//            }
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 //подключение к брокеру
