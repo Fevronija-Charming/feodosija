@@ -1,9 +1,36 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-// Теперь вы можете использовать переменные из .env
-$dbHost = $_ENV['DB_HOST'];
+// Функция для загрузки переменных из .env файла
+function loadEnv($path) {
+    if (!file_exists($path)) {
+        return;
+    }
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        // Пропуск комментариев
+        if (strpos(trim($line), '#') === 0) {
+            continue;
+        }
+
+        // Разделение по знаку =
+        list($name, $value) = explode('=', $line, 2);
+        
+        $name = trim($name);
+        $value = trim($value);
+
+        // Удаление кавычек, если они есть
+        if (preg_match('/^(\'|").*(\'|")$/', $value)) {
+            $value = substr($value, 1, -1);
+        }
+
+        // Установка переменной окружения
+        if (!getenv($name)) {
+            putenv("$name=$value");
+            $_ENV[$name] = $value;
+        }
+    }
+}
+// Загружаем файл из корня проекта
+loadEnv(__DIR__ . '/.env');
 //инициализация данных
 $platok_predstav=["Артикул","Название","Автор платка","Колорит 1","Колорит 2","Колорит 3",
 "Колорит 4","Колорит 5","Узор темени","Узор сердцевины","Узор сторон","Узор углов","Узор краёв",
