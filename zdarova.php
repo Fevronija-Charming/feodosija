@@ -1,4 +1,36 @@
 <?php
+// Функция для загрузки переменных из .env файла
+function loadEnv($path) {
+    if (!file_exists($path)) {
+        return;
+    }
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        // Пропуск комментариев
+        if (strpos(trim($line), '#') === 0) {
+            continue;
+        }
+
+        // Разделение по знаку =
+        list($name, $value) = explode('=', $line, 2);
+        
+        $name = trim($name);
+        $value = trim($value);
+
+        // Удаление кавычек, если они есть
+        if (preg_match('/^(\'|").*(\'|")$/', $value)) {
+            $value = substr($value, 1, -1);
+        }
+
+        // Установка переменной окружения
+        if (!getenv($name)) {
+            putenv("$name=$value");
+            $_ENV[$name] = $value;
+        }
+    }
+}
+// Загружаем файл из корня проекта
+loadEnv(__DIR__ . '/.env');
 echo "Здарова начальник!<br>";
 echo "Начальник привет!<br>";
 echo "У нас тут тепло:<br>";
