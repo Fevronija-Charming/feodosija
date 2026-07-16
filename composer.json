@@ -1,5 +1,5 @@
 {
-    "name": "your-vendor/your-project",
+    "name": "vendor/zdarova",
     "description": "PHP project with dotenv and rabbitmq",
     "type": "project",
     "require": {
