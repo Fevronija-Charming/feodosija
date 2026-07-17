@@ -101,7 +101,7 @@ $vhost=substr($url["path"],1);
 if($url["scheme"] === "amqps"){
     $ssl_opts=array("capath"=>"/etc/ssl/certs"
     );
-    $rabbit_connect=new AMQPSSLConnection($url["host"],5672,$url["user"],$url["pass"],$vhost,$ssl_opts);
+    $rabbit_connect=new AMQPStreamConnection($url["host"],5672,$url["user"],$url["pass"],$vhost);
 } else {
     $rabbit_connect=new AMQPStreamConnection($url["host"],5672,$url["user"],$url["pass"],$vhost);
 }
