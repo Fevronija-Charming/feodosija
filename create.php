@@ -70,6 +70,15 @@ spl_autoload_register(function ($class) {
     }
 });
 //дешифрация секретов
+//обход отсуствия mbstlengh
+if (!function_exists('mb_strlen')) {
+    function mb_strlen($str, $encoding = null) {
+        if ($encoding === null) {
+            $encoding = mb_internal_encoding();
+        }
+        return iconv_strlen($str, $encoding);
+    }
+}
 //новый заяц
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
