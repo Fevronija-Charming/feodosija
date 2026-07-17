@@ -97,14 +97,14 @@ use PhpAmqpLib\Wire\AMQPTable;
 use PhpAmqpLib\Wire\AMQPWriter;
 $url_str=getenv('CLOUDAMQP_URL') OR exit("CLOUDAMQP_URL not set");
 $url=parse_url($url_str);
-$vhost=substr($url["path"],1);
-if($url["scheme"] === "amqps"){
-    $ssl_opts=array("capath"=>"/etc/ssl/certs"
-    );
-    $rabbit_connect=new AMQPStreamConnection($url["host"],5672,$url["user"],$url["pass"],$vhost);
-} else {
-    $rabbit_connect=new AMQPStreamConnection($url["host"],5672,$url["user"],$url["pass"],$vhost);
-}
+//$vhost=substr($url["path"],1);
+//if($url["scheme"] === "amqps"){
+    //$ssl_opts=array("capath"=>"/etc/ssl/certs"
+    //);
+    //$rabbit_connect=new AMQPStreamConnection($url["host"],5672,$url["user"],$url["pass"],$vhost);
+//} else {
+  //  $rabbit_connect=new AMQPStreamConnection($url["host"],5672,$url["user"],$url["pass"],$vhost);
+//}
 $rabbit_host=getenv('RABBITHOST');
 $rabbit_port=getenv('RABBITPORT');
 $rabbit_username=getenv('RABBITUSERNAME');
@@ -124,10 +124,10 @@ $db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
 //echo "Error: {$exception->getMessage()}";
 //            };
 //подключение к брокеру
-//try {$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine);
-    //} catch (Exception $e) {
-    //echo 'Caught broker exception: ',  $e->getMessage(), "\n";
-      //      }
+try {$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine);
+    } catch (Exception $e) {
+    echo 'Caught broker exception: ',  $e->getMessage(), "\n";
+    }
 //обработка отправки формы
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 $artikul=$_POST["Артикул"];
