@@ -71,6 +71,16 @@ spl_autoload_register(function ($class) {
 });
 //дешифрация секретов
 //обход отсуствия mbstlengh
+function mb_substr($str, $start, $length = null, $encoding = 'UTF-8') {
+    // Разбиваем строку на массив символов (учитывая многобайтовые кодировки)
+    $chars = preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
+    
+    // Получаем нужный срез
+    $sliced_chars = array_slice($chars, $start, $length);
+    
+    // Собираем обратно в строку
+    return implode('', $sliced_chars);
+}
 if (!function_exists('mb_strlen')) {
     function mb_strlen($str, $encoding = null) {
         if ($encoding === null) {
