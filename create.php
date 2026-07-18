@@ -118,7 +118,7 @@ $port_rabbit = $parsed_url['port'];
 $user_rabbit = $parsed_url['user'];
 $password_rabbit = $parsed_url['pass'];
 
-$connection_rabbit_new = new AMQPSSLConnection($host_rabbit, $port_rabbit, $user_rabbit, $password_rabbit, '/', $sslOptions);
+//$connection_rabbit_new = new AMQPSSLConnection($host_rabbit, $port_rabbit, $user_rabbit, $password_rabbit, '/', $sslOptions);
 $rabbit_host=getenv('RABBITHOST');
 $rabbit_port=getenv('RABBITPORT');
 $rabbit_username=getenv('RABBITUSERNAME');
@@ -138,10 +138,17 @@ $db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
 //echo "Error: {$exception->getMessage()}";
 //            };
 //подключение к брокеру
-//try {$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine);
-  //  } catch (Exception $e) {
-    //echo 'Caught broker exception: ',  $e->getMessage(), "\n";
-    //}
+try {$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine,$insist = false,
+    $login_method = 'AMQPLAIN',
+    $locale = null,
+    $connection_timeout = 3.0,
+    $read_write_timeout = 3.0,
+    $context = null,
+    $keepalive = true, // <-- Включите этот параметр
+    $heartbeat = 60);
+    } catch (Exception $e) {
+    echo 'Caught broker exception: ',  $e->getMessage(), "\n";
+    }
 //обработка отправки формы
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 $artikul=$_POST["Артикул"];
