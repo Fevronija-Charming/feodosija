@@ -95,8 +95,8 @@ use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Connection\AMQPSSLConnection;
 use PhpAmqpLib\Wire\AMQPTable;
 use PhpAmqpLib\Wire\AMQPWriter;
-$url_str=getenv('CLOUDAMQP_URL') OR exit("CLOUDAMQP_URL not set");
-$url=parse_url($url_str);
+//$url_str=getenv('CLOUDAMQP_URL') OR exit("CLOUDAMQP_URL not set");
+//$url=parse_url($url_str);
 //$vhost=substr($url["path"],1);
 //if($url["scheme"] === "amqps"){
     //$ssl_opts=array("capath"=>"/etc/ssl/certs"
@@ -105,6 +105,20 @@ $url=parse_url($url_str);
 //} else {
   //  $rabbit_connect=new AMQPStreamConnection($url["host"],5672,$url["user"],$url["pass"],$vhost);
 //}
+// сертификаты безопасности
+$sslOptions = array(
+  'cafile' => realpath(__DIR__ . '/isrgrootx1.pem'),
+);
+
+$rabbitmq_url = getenv('STACKHERO_RABBITMQ_AMQP_URL_TLS');
+
+$parsed_url = parse_url($rabbitmq_url);
+$host_rabbit = $parsed_url['host'];
+$port_rabbit = $parsed_url['port'];
+$user_rabbit = $parsed_url['user'];
+$password_rabbit = $parsed_url['pass'];
+
+$connection_rabbit_new = new AMQPSSLConnection($host_rabbit, $port_rabbit, $user_rabbit, $password_rabbit, '/', $sslOptions);
 $rabbit_host=getenv('RABBITHOST');
 $rabbit_port=getenv('RABBITPORT');
 $rabbit_username=getenv('RABBITUSERNAME');
@@ -209,7 +223,7 @@ foreach($platok_dannyje as $svoistvo){
 echo $soobshenije;
 echo "<br>";
 try {
-$channel = $rabbit_connect->channel();
+$channel = $connection_rabbit_new->channel();
 //Объявление очереди (убеждаемся, что она существует)
 $channel->queue_declare('platoky_queue', false, false, false, false);
 //Создание сообщения
@@ -220,7 +234,7 @@ $channel->basic_publish($msg, '', 'platoky_queue');
 echo "Сообщение отправлено!";
 //Закрытие соединения
 $channel->close();
-$rabbit_connect->close();
+$connection_rabbit_new->close();
 } catch (Exception $e) {
     echo 'Caught broker exception: ',  $e->getMessage(), "\n";
 }
