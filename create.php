@@ -118,7 +118,7 @@ $port_rabbit = $parsed_url['port'];
 $user_rabbit = $parsed_url['user'];
 $password_rabbit = $parsed_url['pass'];
 
-$connection_rabbit_new = new AMQPSSLConnection($host_rabbit, 5671, $user_rabbit, $password_rabbit, '/', $sslOptions);
+$connection_rabbit_new = new AMQPSSLConnection($host_rabbit, $port_rabbit, $user_rabbit, $password_rabbit, '/', $sslOptions);
 $rabbit_host=getenv('RABBITHOST');
 $rabbit_port=getenv('RABBITPORT');
 $rabbit_username=getenv('RABBITUSERNAME');
