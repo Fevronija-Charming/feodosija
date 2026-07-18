@@ -146,7 +146,7 @@ $rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_usern
     $context = null,
     $keepalive = true, // <-- Включите этот параметр
     $heartbeat = 60);
-    } 
+    //} 
     //catch (Exception $e) {
     //echo 'Caught broker exception: ',  $e->getMessage(), "\n";
     //}
