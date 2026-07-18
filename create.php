@@ -138,17 +138,18 @@ $db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
 //echo "Error: {$exception->getMessage()}";
 //            };
 //подключение к брокеру
-try {$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine,$insist = false,
+$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine,$insist = false,
     $login_method = 'AMQPLAIN',
     $locale = null,
-    $connection_timeout = 3.0,
-    $read_write_timeout = 3.0,
+    $connection_timeout = 5.0,
+    $read_write_timeout = 5.0,
     $context = null,
     $keepalive = true, // <-- Включите этот параметр
     $heartbeat = 60);
-    } catch (Exception $e) {
-    echo 'Caught broker exception: ',  $e->getMessage(), "\n";
-    }
+    } 
+    //catch (Exception $e) {
+    //echo 'Caught broker exception: ',  $e->getMessage(), "\n";
+    //}
 //обработка отправки формы
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 $artikul=$_POST["Артикул"];
