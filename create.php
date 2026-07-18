@@ -230,7 +230,7 @@ foreach($platok_dannyje as $svoistvo){
 echo $soobshenije;
 echo "<br>";
 try {
-$channel = $connection_rabbit_new->channel();
+$channel = $rabbit_connect->channel();
 //Объявление очереди (убеждаемся, что она существует)
 $channel->queue_declare('platoky_queue', false, false, false, false);
 //Создание сообщения
@@ -241,7 +241,7 @@ $channel->basic_publish($msg, '', 'platoky_queue');
 echo "Сообщение отправлено!";
 //Закрытие соединения
 $channel->close();
-$connection_rabbit_new->close();
+$rabbit_connect->close();
 } catch (Exception $e) {
     echo 'Caught broker exception: ',  $e->getMessage(), "\n";
 }
