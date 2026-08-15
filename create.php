@@ -7,13 +7,15 @@ curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 
 $response=curl_exec($ch);
 
-$httpCode=curl_getinfo($ch,CURLINFO_HTTP_CODE);
-if ($httpCode != 200){
-    echo $httpCode;
+$json=file_get_contents("php://input");
+$data=json_decode($json,true);
+$value=$data["message"] ?? null ;
+
+if ($value != null){
+    echo $value;
 }
 curl_close($ch);
 
-echo $httpCode;
 ?>
 <!DOCTYPE html>
 <html lang="ru">
