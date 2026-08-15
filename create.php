@@ -11,7 +11,7 @@ $httpCode=curl_getinfo($ch,CURLINFO_HTTP_CODE);
 
 curl_close($ch);
 
-echo $httpCode
+echo $httpCode;
 ?>
 // Функция для загрузки переменных из .env файла
 function loadEnv($path) {
@@ -124,29 +124,29 @@ $sslOptions = array(
   'cafile' => realpath(__DIR__ . '/isrgrootx1.pem'),
 );
 
-$rabbitmq_url = getenv('STACKHERO_RABBITMQ_AMQP_URL_TLS');
+//$rabbitmq_url = getenv('STACKHERO_RABBITMQ_AMQP_URL_TLS');
 
-$parsed_url = parse_url($rabbitmq_url);
-$host_rabbit = $parsed_url['host'];
-$port_rabbit = $parsed_url['port'];
-$user_rabbit = $parsed_url['user'];
-$password_rabbit = $parsed_url['pass'];
+//$parsed_url = parse_url($rabbitmq_url);
+//$host_rabbit = $parsed_url['host'];
+//$port_rabbit = $parsed_url['port'];
+//$user_rabbit = $parsed_url['user'];
+//$password_rabbit = $parsed_url['pass'];
 
 //$connection_rabbit_new = new AMQPSSLConnection($host_rabbit, $port_rabbit, $user_rabbit, $password_rabbit, '/', $sslOptions);
-$rabbit_host=getenv('RABBITHOST');
-$rabbit_port=getenv('RABBITPORT');
-$rabbit_username=getenv('RABBITUSERNAME');
-$rabbit_password=getenv('RABBITPASSWORD');
-$rabbit_virtual_engine=getenv('RABBITVIRTUALENGINE');
-$host=getenv('HOST');
-$dbname=getenv("DBNAME");
-$password=getenv("PASSWORD");
-$username=getenv("USERNAME");
-$port=getenv("PORT");
+//$rabbit_host=getenv('RABBITHOST');
+//$rabbit_port=getenv('RABBITPORT');
+//$rabbit_username=getenv('RABBITUSERNAME');
+//$rabbit_password=getenv('RABBITPASSWORD');
+//$rabbit_virtual_engine=getenv('RABBITVIRTUALENGINE');
+//$host=getenv('HOST');
+//$dbname=getenv("DBNAME");
+//$password=getenv("PASSWORD");
+//$username=getenv("USERNAME");
+//$port=getenv("PORT");
 //подключение к БД
-$db=parse_url(getenv("DATABASEURL"));
-$pdo=new PDO("pgsql:".sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
-$db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
+//$db=parse_url(getenv("DATABASEURL"));
+//$pdo=new PDO("pgsql:".sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
+//$db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
 //try {$pdo= new PDO("pgsql:host=$host;dbname=$dbname;port=$port;",$username,$password);
    // } catch (PDOException $exception){
 //echo "Error: {$exception->getMessage()}";
@@ -160,11 +160,10 @@ $db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
     //$context = null,
     //$keepalive = true, // <-- Включите этот параметр
     //$heartbeat = 60);
-    //} 
     //catch (Exception $e) {
     //echo 'Caught broker exception: ',  $e->getMessage(), "\n";
     //}
-    ?>
+    //?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
