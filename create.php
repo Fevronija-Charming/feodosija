@@ -1,9 +1,9 @@
 <?php
 $ch=curl_init("https://pulherija-c47cb3169d8b.herokuapp.com/gamajun/api/add");
 curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-curl_setopt($ch,CURLOPT_POST,true);
-curl_setopt($ch,CURLOPT_POSTFIELDS,json_decode(["action"=>"click"]));
-curl_setopt($ch,CURLOPT_HTTPHEADER,["Content-Type:application/json"]);
+//curl_setopt($ch,CURLOPT_POST,true);
+//curl_setopt($ch,CURLOPT_POSTFIELDS,json_decode(["action"=>"click"]));
+//curl_setopt($ch,CURLOPT_HTTPHEADER,["Content-Type:application/json"]);
 
 $response=curl_exec($ch);
 
