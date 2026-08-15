@@ -1,4 +1,18 @@
 <?php
+$ch=curl_init("https://pulherija-c47cb3169d8b.herokuapp.com/gamajun/api/add");
+curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+curl_setopt($ch,CURLOPT_POST,true);
+curl_setopt($ch,CURLOPT_POSTFIELDS,json_decode(["action"=>"click"]));
+curl_setopt($ch,CURLOPT_HTTPHEADER,["Content-Type:application/json"]);
+
+$response=curl_exec($ch);
+
+$httpCode=curl_getinfo($ch,CURLINFO_HTTP_CODE);
+
+curl_close($ch);
+
+echo $httpCode
+?>
 // Функция для загрузки переменных из .env файла
 function loadEnv($path) {
     if (!file_exists($path)) {
@@ -71,24 +85,24 @@ spl_autoload_register(function ($class) {
 });
 //дешифрация секретов
 //обход отсуствия mbstlengh
-function mb_substr($str, $start, $length = null, $encoding = 'UTF-8') {
+//function mb_substr($str, $start, $length = null, $encoding = 'UTF-8') {
     // Разбиваем строку на массив символов (учитывая многобайтовые кодировки)
-    $chars = preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
+    //$chars = preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
     
     // Получаем нужный срез
-    $sliced_chars = array_slice($chars, $start, $length);
+    //$sliced_chars = array_slice($chars, $start, $length);
     
     // Собираем обратно в строку
-    return implode('', $sliced_chars);
-}
-if (!function_exists('mb_strlen')) {
-    function mb_strlen($str, $encoding = null) {
-        if ($encoding === null) {
-            $encoding = mb_internal_encoding();
-        }
-        return iconv_strlen($str, $encoding);
-    }
-}
+    //return implode('', $sliced_chars);
+//}
+//if (!function_exists('mb_strlen')) {
+    //function mb_strlen($str, $encoding = null) {
+        //if ($encoding === null) {
+        //    $encoding = mb_internal_encoding();
+        //}
+        //return iconv_strlen($str, $encoding);
+    //}
+//}
 //новый заяц
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -138,14 +152,14 @@ $db["host"],$db["port"],$db["user"],$db["pass"],ltrim($db["path"],"/")));
 //echo "Error: {$exception->getMessage()}";
 //            };
 //подключение к брокеру
-$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine,$insist = false,
-    $login_method = 'AMQPLAIN',
-    $locale = null,
-    $connection_timeout = 5.0,
-    $read_write_timeout = 5.0,
-    $context = null,
-    $keepalive = true, // <-- Включите этот параметр
-    $heartbeat = 60);
+//$rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_username,$rabbit_password,$rabbit_virtual_engine,$insist = false,
+    //$login_method = 'AMQPLAIN',
+    //$locale = null,
+    //$connection_timeout = 5.0,
+    //$read_write_timeout = 5.0,
+    //$context = null,
+    //$keepalive = true, // <-- Включите этот параметр
+    //$heartbeat = 60);
     //} 
     //catch (Exception $e) {
     //echo 'Caught broker exception: ',  $e->getMessage(), "\n";
@@ -163,20 +177,20 @@ $rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_usern
         <header class="d-flex justify-content-between my-1">
         <h2>Добавить платок</h2>
         </header>  
-        <form action="register.php" method="post">
+        <form action="https://pulherija-c47cb3169d8b.herokuapp.com/gamajun/api/add" method="post">
             <div class="form-element my-1">
                 <span>Артикул платка_</span>
-                <input type="integer" class="form-control" name="Артикул" placeholder="Артикул" required="true">
+                <input type="integer" class="form-control" name="id" placeholder="id" required="true">
             </div>
             <br>
             <div class="form-element my-1">
                 <span>Название платка</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Название_платка" placeholder="Название платка" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Название_Платка" placeholder="Название платка" required="true">
             </div>
             <br>
             <div class="form-element my-1">
                 <span>Автор платка___</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Автор_платка" placeholder="Автор платка" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Автор_Платка" placeholder="Автор платка" required="true">
             </div>
             <br>
             <div class="form-element my-1">
@@ -206,72 +220,72 @@ $rabbit_connect=new AMQPStreamConnection($rabbit_host,$rabbit_port,$rabbit_usern
             <br>
             <div class="form-element my-4">
                 <span>Узор темени____</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_темени" placeholder="Узор_темени" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_Темени" placeholder="Узор_темени" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Узор сердцевины</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_сердцевины" placeholder="Узор сердцевины" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_Сердцевины" placeholder="Узор сердцевины" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Узор сторон____</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_сторон" placeholder="Узор сторон" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_Сторон" placeholder="Узор сторон" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Узор углов_____</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_углов" placeholder="Узор углов" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_Углов" placeholder="Узор углов" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Узор краёв_____</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_краёв" placeholder="Узор краёв" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Узор_Края" placeholder="Узор краёв" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Строен. узора и орнам_</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="соотнцветыорнам" placeholder="соотнцветыорнам" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Цветы_Орнамент" placeholder="соотнцветыорнам" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Нарисованный цветок 1</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Нарисованный_цветок_1" placeholder="Нарисованный цветок 1" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Изображённый_Цветок_1" placeholder="Нарисованный цветок 1" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Нарисованный цветок 2</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Нарисованный_цветок_2" placeholder="Нарисованный цветок 2" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Изображённый_Цветок_2" placeholder="Нарисованный цветок 2" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Нарисованный цветок 3</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Нарисованный_цветок_3" placeholder="Нарисованный цветок 3" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Изображённый_Цветок_3" placeholder="Нарисованный цветок 3" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Нарисованный цветок 4</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Нарисованный_цветок_4" placeholder="Нарисованный цветок 4" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Изображённый_Цветок_4" placeholder="Нарисованный цветок 4" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Нарисованный цветок 5</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Нарисованный_цветок_5" placeholder="Нарисованный_цветок 5" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Изображённый_Цветок_5" placeholder="Нарисованный_цветок 5" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Размер платка_____</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Размер_платка" placeholder="Размер_платка" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Размер_Платка" placeholder="Размер_платка" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Материал платка__</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Материал_платка" placeholder="Материал_платка" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Материал_Платка" placeholder="Материал_платка" required="true">
             </div>
             <br>
             <div class="form-element my-4">
                 <span>Материал бахромы_</span>
-                <input type="text" maxlength="64" minlength="5" class="form-control" name="Материал_бахромы" placeholder="Материал_бахромы" required="true">
+                <input type="text" maxlength="64" minlength="5" class="form-control" name="Материал_Бахромы" placeholder="Материал_бахромы" required="true">
             </div>
             <br>
             <div class="form-element my-4">
